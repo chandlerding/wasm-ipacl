@@ -54,6 +54,12 @@ The `update.sh` script automates the entire build and deployment process. Here a
     cargo build --target wasm32-wasip1 --release
     ```
 
+4.  **Test/Benchmark**:
+    Use local docker container to test/benchmark the plugin's performance.
+    ```bash
+    tests/bench.sh 
+    ```
+
 ### Deployment
 
 Follow the [document](https://docs.cloud.google.com/service-extensions/docs/prepare-plugin-code#upload-code)  to deploy the compiled WASM module & configuration as a service extension plugin.
