@@ -1,0 +1,53 @@
+env {
+  log_level: INFO  
+  log_path: "/dev/stdout"
+}
+
+test {
+  name: "BlockedV4"
+  benchmark: true
+  request_headers {
+    input { header { key: "x-forwarded-for" value: "2.2.2.2, 1.1.1.1" } }
+    result {
+      immediate {
+        http_status: 403
+      }
+    }
+  }
+}
+
+test {
+  name: "BlockedV6"
+  benchmark: true
+  request_headers {
+    input { header { key: "x-forwarded-for" value: "2.2.2.2, 2460::1" } }
+    result {
+      immediate {
+        http_status: 403
+      }
+    }
+  }
+}
+
+
+test {
+  name: "PassedV4"
+  benchmark: true
+  request_headers {
+    input { header { key: "x-forwarded-for" value: "3.3.3.3" } }
+  result {
+    no_header { key: ":scheme" }
+    }
+  }
+}
+
+test {
+  name: "PassedV6"
+  benchmark: true
+  request_headers {
+    input { header { key: "x-forwarded-for" value: "2222::1" } }
+  result {
+      no_header { key: ":scheme" }
+  }
+}
+}

@@ -1,0 +1,20 @@
+[package]
+name = "wasm-ip"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+ipnet = "2.11.0"
+ipnet-trie = { version = "0.3.0", features = ["export"] }
+log = "0.4"
+proxy-wasm = "0.2.1"
+
+[profile.release]
+lto = true
+strip = true
+opt-level = "z"
